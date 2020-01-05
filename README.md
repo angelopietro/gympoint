@@ -50,7 +50,7 @@ c) **Frontend Mobile**
 [Yarn](yarnpkg.com) - Gerenciador de pacotes  
 [Postbird](https://electronjs.org/apps/postbird) - GUI PostgreSQL  
 [MongoDB Compass](https://www.mongodb.com/download-center/compass) - GUI MongoDB  
-[Reactotron](https://github.com/infinitered/reactotron) - Ferramenta para inspecionar as aplicações ReactJS e React Native.
+[Reactotron](https://github.com/infinitered/reactotron) - Ferramenta para inspecionar as aplicações ReactJS e React Native.  
 [Docker](https://www.docker.com/) - Plataforma aberta para criação, execução e publicação (deploy) de containers  
 [Docker Compose](https://docs.docker.com/compose/) - Orquestrador de containers Docker  
 [Android Studio](https://developer.android.com/studio) - Emulador Mobile
@@ -170,8 +170,7 @@ No diretório **mobile** do projeto execute as seguintes linhas de comando:
 # instalar as dependências
 yarn install
 
-# Iniciar a aplicação
-# Como foi desenvildo utilizando o Android, utilize o run-android.
+# Iniciar a aplicação executando run-android.
 react-native run-android
 react-native start
 ```
