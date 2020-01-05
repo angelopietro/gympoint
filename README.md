@@ -1,76 +1,88 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="https://github.com/angelopietro/gympoint/blob/master/.github/logo.png?raw=true" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="![logo](https://user-images.githubusercontent.com/5533726/71780030-2a577600-2f9c-11ea-8692-84656aacf1fa.png)
+" />
 </h1>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 </p>
 
-Projeto FullStack para Gerenciamento de academia desenvolvido durante o GoStack Bootcamp da Rocketseat. Este foi o projeto final para a certificação.
+Projeto FullStack em **NodeJS** (backend), **ReactJS**(frontend) e **React Native**(Mobile) para Gerenciamento de academia desenvolvido durante o GoStack Bootcamp da Rocketseat. Este foi o projeto final para a certificação.
 
-A versão web do projeto Gympoint representa a visão da academia, ou seja, todas funcionalidades presentes na versão web são para administradores. As funcionalidades para o aluno estão no aplicativo mobile.
+**OBS:** A versão web do projeto Gympoint representa a visão da academia, ou seja, todas funcionalidades presentes na versão web são para administradores. As funcionalidades para o aluno estão no aplicativo mobile.
 
 # Informações importantes
 
-1. Este projeto foi desenvolvido utilizando as stacks **NodeJS** (backend), **ReactJS**(frontend) e **React Native**(Mobile);
+1. A versão **Mobile** foi testada utilizando o emulador **Android (Android Studio)**;
 
-2) A versão **Mobile** foi testada utilizando o emulador Android (Android Studio);
+2. No ambente de desenvolvimento, foi utilizado o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/) com as imagens/serviços do **PostgreSQL** (Banco relacional), **MongoDB** (NoSQL orientado a documentos) e **Redis** (NoSQL armazenando chave-valor)
 
-3. Para poder criar todas as imagens (banco de dados) e rodar aplicação, será necessário instalar o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/).
+# Features adicionais
 
-4) Banco de dados utilizados:
-   - PostgreSQL (Banco relacional)
-   - MongoDB (NoSQL orientado a documentos)
-   - Redis (NoSQL armazenando chave-valor)
-
-5. Implementação de novas features (não faziam parte do desafio)
+Estas features não faziam parte do desafio e foram desenvolvidas para melhorar a experiência do usuário (UX)
 
 a) **Frontend Web**
 
 - No módulo de matrícula, o `input` para data de início só será habilitado caso houver um plano selecionado;
+- Tamanhos de compomentes e área de trabalho do usuário padronizados
+
+**Sugestão de melhoria:** Ajustar a aplicação para que seja responsivo :wink:
 
 b) **Backend**
 
 - Envio de email ao aluno nas seguintes situações:
   - Cancelamento da matrícula;
   - Alteração do plano.
+- Implementação de segurança **CORS** e **Helmmet** (Coleção de nove funções de middlewares menores que configuram cabeçalhos HTTP relacionados à segurança)
 
 c) **Frontend Mobile**
 
-- O aluno que não possuir a sua matrícula **Ativa**, conseguirá acessar o App mas com o botão de check-in desabilitado, podendo apenas enviar mensagens aos administradores da academia;
-- Em caso de matrícula não **Ativa**, será apresentada uma mensage ao aluno com a data de sua ativação;
+- O aluno que não possuir a sua matrícula **Ativa**, conseguirá acessar o App mas com o **botão de check-in desabilitado**, podendo apenas enviar mensagens aos administradores da academia;
+- Em caso de matrícula não **Ativa**, será apresentada uma mensagem ao aluno com a data de sua ativação;
 - Apresentação do nome do aluno logado;
 - Apresentação do plano atual do aluno;
 - Opção para logout.
 
+# Ambiente de desenvolvimento
+
+[Visual Studio Code](https://code.visualstudio.com/) - Editor de código  
+[Imsomnia](https://insomnia.rest/) - Cliente de serviços http (APIs)  
+[Node](https://nodejs.org/) - Interpretador de JavaScript orientado a eventos  
+[Yarn](yarnpkg.com) - Gerenciador de pacotes  
+[Postbird](https://electronjs.org/apps/postbird) - GUI PostgreSQL  
+[MongoDB Compass](https://www.mongodb.com/download-center/compass) - GUI MongoDB  
+[Reactotron](https://github.com/infinitered/reactotron) - Ferramenta para inspecionar as aplicações ReactJS e React Native.
+[Docker](https://www.docker.com/) - Plataforma aberta para criação, execução e publicação (deploy) de containers  
+[Docker Compose](https://docs.docker.com/compose/) - Orquestrador de containers Docker  
+[Android Studio](https://developer.android.com/studio) - Emulador Mobile
+
 # Passos para instalação
 
-Instalando as Imagens Docker
+Após ter seu ambiente de desenvolvimento todo instalado e configurado com as suas ferramentas preferenciais, siga os passos abaixo:
 
-### PostgreSQL
+### 1. Instalando as Imagens/Serviços Docker
 
-```sh
-$ docker run --name nome-imagem-postgres -e POSTGRES_PASSWORD=secret-password -d postgres
+#### PostgreSQL
+
+```bash
+$ docker run --name nome-container-postgres -e POSTGRES_PASSWORD=secret-password -d postgres
 ```
 
-### MongoDB
+#### MongoDB
 
-```sh
-$ docker run --name nome-imagem-mongo -d mongo:latest
+```bash
+$ docker run --name nome-container-mongo -d mongo:latest
 ```
 
-### Redis
+#### Redis
 
-```sh
-$ docker run --name nome-imagem-redis -d redis:alpine
+```bash
+$ docker run --name nome-container-redis -d redis:alpine
 ```
 
-## GUI
+---
 
-- [Postbird](https://electronjs.org/apps/postbird) para PostgreSQL
-- [MongoDB Compass](https://www.mongodb.com/download-center/compass) para MongoDB
-
-## 1. Clonando o repositório
+### 2. Clonando o repositório
 
 Para baixar/clonar o repositório, utilize o comando:
 
@@ -78,106 +90,82 @@ Para baixar/clonar o repositório, utilize o comando:
 git clone https://github.com/angelopietro/gympoint.git
 ```
 
-## 2. Configurando as aplicações
+---
+
+### 3. Configurando as aplicações
 
 ### Backend
 
+**Passos para instalação e execução:**
+
 1. No diretório **backend** do projeto, renomeie o arquivo `env.example` para `.env`.
 
-2. Abra o arquivo `.env` e configure as constantes preenchendo as informações solicitadas.
+2. Abra o arquivo `.env` e configure as constantes(variáveis de ambiente) preenchendo as informações solicitadas.
 
-**OBS:** Neste arquivo `.env`, estarão todas as variáveis de ambiente necessárias para configurar a aplicação.
+3. Crie a base de dados no **postgresql** (utilizando linha de comando ou o GUI de sua preferência) com o mesmo nome informado na constante **DB_NAME** do arquivo de configuração **.env**
 
-O condeúdo que você encontrará dentro do arquivo deve estar igual ao abaixo:
+4. Comandos a serem executados:
 
-```js
-FRONT_CORE_URL=http://localhost:3000
-NODE_ENV=development
+```bash
+# Iniciar os serviços do postgres, mongodb e redis
+$ docker-compose up
 
-# Auth
-APP_SECRET=
+# Instalar as dependências do backend
+$ yarn install
 
-# Database PostgreSQL
-DB_DIALECT=postgresql
-DB_HOST=
-DB_USER=
-DB_PASS=
-DB_NAME=gympoint
+# Para criar as estruturas de banco
+$ yarn sequelize db:migrate
 
-# Mongo
-MONGO_URL=
+# Para popular a tabela de users com um usuário padrão
+$ yarn sequelize db:seed:all
 
-# Redis
-REDIS_HOST=
-REDIS_PORT=
+# Para iniciar o serviço de envio de email (abra e execute em outro terminal)
+$ yarn queue
 
-# Mail
-MAIL_HOST=
-MAIL_PORT=
-MAIL_USER=
-MAIL_PASS=
-
-# Sentry
-SENTRY_DNS=
+# Para iniciar o serviço do backend
+$ yarn dev
 ```
 
-3. `docker-compose up` para subir o **mysql, mongodb e redis**
-4. `yarn sequelize db:migrate` para criar as estruturas de banco
-5. `yarn sequelize db:seed:all` para popular a tabela de users com um usuário padrão
-6. `yarn queue` para iniciar o serviço de envio de email (abra e execute em outro terminal)
-7. `yarn dev` para iniciar o serviço do backend
-
-Abaixo um resumo sequencial dos passos a serem executados:
-
-```sh
-# instalar as dependências
-yarn install
-
-# Criar as estruturas do banco de dados
-yarn sequelize db:migrate
-
-# Popular a tabela de users com um usuário padrão
-yarn sequelize db:seed:all
-
-# Iniciar o serviço de envio de email
-yarn queue
-
-# Iniciar o serviço do backend
-yarn dev
-```
+---
 
 ### Frontend Web
 
-No diretório **frontend** execute:
+**Passos para instalação e execução:**
 
-```sh
+No diretório **frontend** execute as seguintes linhas de comando:
+
+```bash
 # instalar as dependências
-yarn install
+$ yarn install
 
 # Iniciar o serviço do frontend
-yarn start
+$ yarn start
 ```
 
 1. Abra o seu browse e digite o endereço `http://localhost:3000`
-2. Após acessar a página de `Login`, preencha os dados com as seguintes informações:
+2. Após acessar a página de `Login`, realize o acesso utilizando com as seguintes informações:
 
-```text
-Usuário: admin@gypoint.com
-Senha: 123456
-```
+> **Usuário:** admin@gypoint.com  
+> **Senha:** 123456
 
 Pronto!!! Agora você já poderá realizar a administração de sua academia (cadastro de alunos, planos, matrículas e responder as dúvidas)
 
+---
+
 ### Frontend Mobile
 
-Emulador
+**Importante:**
 
-- O Gympoint foi desenvolvido e testado com o emulador do Android Studio.
-  Observação: Não foi realizado testes em IOS (Iphone)
+1. Antes de rodar a aplicação **mobile** certifique-se de que já tenhas realizado a configuração de seu emulador **Android** utilizando o [Androi Studio(https://developer.android.com/studio)] ou o [Genymotion](https://www.genymotion.com/)
 
-No diretório **mobile** do projeto execute:
+2. O Gympoint foi desenvolvido e testado com o emulador do Android Studio.
+   Não foi realizado testes em **IOS (Iphone)**
 
-```sh
+**Passos para isntalação e execução:**
+
+No diretório **mobile** do projeto execute as seguintes linhas de comando:
+
+```bash
 # instalar as dependências
 yarn install
 
@@ -189,9 +177,9 @@ react-native start
 
 Para que você possa acessar como aluno na versão **mobile**, cadastre um aluno na área de administração **Frontend Web**, realize a sua matrícula (precisa estar **ATIVA**) , e utilize o ID recebido no email após a realização e liberação da matrícula.
 
-## Author
+## Autor
 
-👤 **Ângelo Pietro**
+:mortar_board: **Ângelo Pietro**
 
 - Linkedin: [Ângelo Pietro](https://www.linkedin.com/in/angelopietro/)
 - Github: [@angelopietro](https://github.com/angelopietro)
