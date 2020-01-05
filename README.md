@@ -1,6 +1,5 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="(https://user-images.githubusercontent.com/5533726/71780030-2a577600-2f9c-11ea-8692-84656aacf1fa.png)
-" />
+  <img alt="Gympoint" title="Gympoint" src="https://user-images.githubusercontent.com/5533726/71780030-2a577600-2f9c-11ea-8692-84656aacf1fa.png" />
 </h1>
 
 <p align="center">
