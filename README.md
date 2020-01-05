@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="![logo](https://user-images.githubusercontent.com/5533726/71780030-2a577600-2f9c-11ea-8692-84656aacf1fa.png)
+  <img alt="Gympoint" title="Gympoint" src="(https://user-images.githubusercontent.com/5533726/71780030-2a577600-2f9c-11ea-8692-84656aacf1fa.png)
 " />
 </h1>
 
@@ -104,7 +104,9 @@ git clone https://github.com/angelopietro/gympoint.git
 
 3. Crie a base de dados no **postgresql** (utilizando linha de comando ou o GUI de sua preferência) com o mesmo nome informado na constante **DB_NAME** do arquivo de configuração **.env**
 
-4. Comandos a serem executados:
+4. Abra o arquivo `docker-compose.yml` e configure suas variáveis de acordo com a instalação e parâmetros de sua imagem docker para cada um dos serviços.
+
+5. Comandos a serem executados:
 
 ```bash
 # Iniciar os serviços do postgres, mongodb e redis
