@@ -5,22 +5,23 @@ import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { notification } from 'antd';
 import * as Yup from 'yup';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
-import { Container, SectionHeader, InputGroup, Buttons } from './styles';
+import {
+  FormContainer,
+  FormSectionHeader,
+  FormInputGroup,
+  FormButtons,
+} from '../styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import ButtonBack from '~/components/Buttons/General';
 import ButtonSave from '~/components/Buttons/Submit';
 import Currency from '~/components/Mask/Currency';
 
-/* -----SERVICES----- */
 import history from '~/services/history';
 import api from '~/services/api';
 
-/* -----UTIL----- */
 import { formatPrice } from '~/util/format';
 
 const schema = Yup.object().shape({
@@ -29,11 +30,10 @@ const schema = Yup.object().shape({
   price: Yup.string().required('Por favor, preencha o preço'),
 });
 
-export default function Edit() {
-  const [isLoading, setIsLoading] = useState(false);
+export default function EditPlan() {
   const { id } = useParams();
-
   const [plan, setPlan] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function loadPlan() {
@@ -96,12 +96,12 @@ export default function Edit() {
   }
 
   return (
-    <Container>
+    <FormContainer>
       <Form initialData={plan} schema={schema} onSubmit={handleSubmit}>
-        <SectionHeader>
+        <FormSectionHeader>
           <h2>Edição de planos</h2>
 
-          <Buttons>
+          <FormButtons>
             <ButtonBack
               color="secondary"
               type="button"
@@ -119,12 +119,12 @@ export default function Edit() {
               )}
               SALVAR
             </ButtonSave>
-          </Buttons>
-        </SectionHeader>
+          </FormButtons>
+        </FormSectionHeader>
         <Card>
           <h5>TÍTULO DO PLANO</h5>
           <Input type="text" name="title" />
-          <InputGroup>
+          <FormInputGroup>
             <div>
               <h5>DURAÇÃO(em meses)</h5>
               <Input
@@ -157,9 +157,9 @@ export default function Edit() {
                 disabled
               />
             </div>
-          </InputGroup>
+          </FormInputGroup>
         </Card>
       </Form>
-    </Container>
+    </FormContainer>
   );
 }

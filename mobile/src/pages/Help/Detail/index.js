@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-/* -----COMPONENTS----- */
+import UserHeader from '~/components/UserHeader';
 import Background from '~/components/Background';
 
-/* -----STYLES----- */
 import {
   Container,
   CardDetail,
@@ -23,6 +22,7 @@ export default function Detail({ navigation }) {
   return (
     <Background>
       <Container>
+        <UserHeader />
         <CardDetail>
           <CardHeader>
             <Title>Pergunta</Title>

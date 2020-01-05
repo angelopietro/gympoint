@@ -2,7 +2,6 @@ import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Mail from '../../lib/Mail';
 
-/* -----UTIL----- */
 import { formatPrice } from '../../util/format';
 
 class StudentPlanChangedMail {

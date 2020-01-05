@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-/* -----COMPONENTS----- */
+import UserHeader from '~/components/UserHeader';
 import UserStatus from '~/components/UserStatus';
 
-/* -----STYLES----- */
 import {
   Container,
   CheckInList,
@@ -19,16 +17,13 @@ import {
   ButtonSubmit,
 } from './styles';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 
-/* -----UTIL----- */
-import { customFormatDate } from '~/util/format';
+import { formatDistanceDate } from '~/util/format';
 
-function Checkin({ navigation }) {
+function Checkins({ isFocused }) {
   const { student_id, active } = useSelector(state => state.auth.user);
 
-  console.tron.log(student_id);
   const [checkins, setCheckins] = useState([]);
   const [totalCheckins, setTotalCheckins] = useState(0);
   const [page, setPage] = useState(1);
@@ -36,7 +31,7 @@ function Checkin({ navigation }) {
   const [isLoading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  async function loadCheckin(pageNumber = page, shouldRefresh = false) {
+  async function loadCheckins(pageNumber = page, shouldRefresh = false) {
     setLoading(true);
 
     try {
@@ -51,7 +46,7 @@ function Checkin({ navigation }) {
       const listCheckins = await data.docs.map(response => ({
         id: response.id,
         active: response.active,
-        dateCheckin: customFormatDate(response.createdAt),
+        dateCheckin: formatDistanceDate(response.createdAt),
       }));
 
       setCheckins(
@@ -70,21 +65,17 @@ function Checkin({ navigation }) {
   }
 
   useEffect(() => {
-    loadCheckin();
-  }, []); // eslint-disable-line
-
-  useEffect(() => {
-    navigation.addListener('willFocus', async () => {
-      await loadCheckin(1, true);
-    });
-  }, [navigation]); // eslint-disable-line
+    if (isFocused) {
+      loadCheckins(1, true);
+    }
+  }, [isFocused]); // eslint-disable-line
 
   async function handleNewCheckin() {
     try {
+      setLoading(true);
       await api.post(`/students/${student_id}/checkins`);
       Alert.alert('Sucesso', 'Seu check-in foi realizado com sucesso!');
-      setLoading(true);
-      await loadCheckin(1, true);
+      await loadCheckins(1, true);
     } catch (error) {
       if (error) {
         Alert.alert('Atenção!', error.response.data.error);
@@ -94,7 +85,7 @@ function Checkin({ navigation }) {
     }
   }
 
-  async function handleCheckin() {
+  async function handleConfirmCheckin() {
     Alert.alert(
       'Confirmação de Check-in',
       'Você deseja realizar um novo chekin?',
@@ -108,7 +99,7 @@ function Checkin({ navigation }) {
 
   async function refreshList() {
     setRefreshing(true);
-    await loadCheckin(1, true);
+    await loadCheckins(1, true);
     setRefreshing(false);
   }
 
@@ -123,11 +114,10 @@ function Checkin({ navigation }) {
     );
   }
 
-  console.tron.log(active);
-
   return (
     <Container>
-      <ButtonSubmit onPress={handleCheckin} enabled={active}>
+      <UserHeader />
+      <ButtonSubmit onPress={handleConfirmCheckin} enabled={active}>
         Novo check-in
       </ButtonSubmit>
 
@@ -139,7 +129,7 @@ function Checkin({ navigation }) {
         onRefresh={refreshList}
         refreshing={refreshing}
         onEndReachedThreshold={0.1}
-        onEndReached={() => loadCheckin()}
+        onEndReached={() => loadCheckins()}
         renderItem={active && renderItem}
         ListFooterComponent={isLoading && <Loading />}
       />
@@ -147,10 +137,4 @@ function Checkin({ navigation }) {
   );
 }
 
-Checkin.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    addListener: PropTypes.func.isRequired,
-  }).isRequired,
-};
-export default withNavigationFocus(Checkin);
+export default withNavigationFocus(Checkins);

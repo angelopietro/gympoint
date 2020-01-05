@@ -3,7 +3,6 @@ import Student from '../models/Student';
 import Checkins from '../schemas/Checkins';
 
 class CheckinController {
-  // INDEX
   async index(req, res) {
     const { student_id } = req.params;
     const { page = 1, paginate = 10 } = req.query;
@@ -14,19 +13,18 @@ class CheckinController {
       return res.status(401).json({ error: 'Aluno não encontrado!' });
     }
 
-    const options = {
-      attributes: ['id', 'student_id', 'createdAt'],
-      page,
-      limit: paginate,
-      sort: { createdAt: -1 },
-    };
-
-    const data = await Checkins.paginate({ student_id }, options);
-
+    const data = await Checkins.paginate(
+      { student_id },
+      {
+        attributes: ['id', 'student_id', 'createdAt'],
+        page,
+        limit: paginate,
+        sort: { createdAt: -1 },
+      }
+    );
     return res.json(data);
   }
 
-  // STORE
   async store(req, res) {
     const { student_id } = req.params;
     const studentId = await Student.findByPk(student_id);
@@ -36,13 +34,10 @@ class CheckinController {
     }
 
     const daysAgo = subDays(new Date(), 7);
-
     const counCheckins = await Checkins.countDocuments({
       student_id,
       createdAt: {
-        // seleciona os documentos em que o valor do campo é maior que o valor especificado
         $gt: daysAgo,
-        // seleciona os documentos em que o valor do campo é menor que o valor especificado
         $lt: new Date(),
       },
     });

@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-/* -----REDUX----- */
 import { useSelector } from 'react-redux';
 
-/* -----COMPONENTS----- */
+import UserHeader from '~/components/UserHeader';
 import Background from '~/components/Background';
 
-/* -----STYLES----- */
 import { Container, ButtonSubmit, TextInput } from './styles';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 
 export default function New({ navigation }) {
@@ -23,8 +20,6 @@ export default function New({ navigation }) {
 
   async function handleSubmit() {
     setLoading(true);
-
-    console.tron.log(question);
 
     try {
       await api.post(`/students/${student_id}/help-orders`, {
@@ -43,6 +38,7 @@ export default function New({ navigation }) {
   return (
     <Background>
       <Container>
+        <UserHeader />
         <TextInput
           autoCapitalize="none"
           keyboardType="default"

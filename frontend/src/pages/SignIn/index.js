@@ -5,6 +5,11 @@ import * as Yup from 'yup';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
+import colors from '~/styles/colors';
+
+import Loading from '~/components/Loading';
+
+/* -----ASSETS----- */
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
@@ -29,11 +34,15 @@ export default function SignIn() {
       <img src={logo} alt="Gympoint" />
 
       <Form onSubmit={handleSubmit} schema={schema}>
-        <Input name="email" type="email" placeholder="example@domain.com" />
+        <Input name="email" type="email" placeholder="username@domain.com" />
         <Input name="password" type="password" placeholder="*********" />
 
         <button type="submit">
-          {loading ? 'Validando dados...' : 'Entrar no sistema'}
+          {loading ? (
+            <Loading color={colors.white} size={16} />
+          ) : (
+            'Entrar no sistema'
+          )}
         </button>
       </Form>
     </>

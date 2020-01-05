@@ -3,7 +3,7 @@ import colors from '~/styles/colors';
 
 export const Container = styled.div`
   padding: 0 30px;
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
   .question {
     overflow: hidden;

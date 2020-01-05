@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-// import { darken } from 'polished';
 import colors from './colors';
 
 import 'antd/dist/antd.css';
@@ -14,7 +13,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
     -webkit-font-smoothing: auto ;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Roboto", Arial, helvetica, sans-serif;
 
  }
@@ -40,6 +39,7 @@ export default createGlobalStyle`
   }
 
   input{
+    width: 100%;
     border: ${colors.gray300} 1px solid;
     &::placeholder {
       color: ${colors.gray400};
@@ -87,70 +87,55 @@ export default createGlobalStyle`
     color: ${colors.gray600}
   }
 
-table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    width: 100%;
-    color: ${colors.gray500};
+  table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      width: 100%;
+      color: ${colors.gray500};
 
-    thead {
-      font-weight: bold;
-      text-transform: uppercase;
+      thead {
+        font-weight: bold;
+        text-transform: uppercase;
 
-      td {
-        padding: 0px 10px 0 0;
-
-        &:nth-child(4) {
-          text-align: center;
-        }
-      }
-    }
-
-    tbody {
-
-      tr {
-        & :nth-child(4) {
-          text-align: center;
-        }
+        td {
+          padding: 0px 10px 0 0;        }
       }
 
-      & tr + tr {
-        border-top: 1px solid ${colors.gray200};
-      }
+      tbody {
 
-      & tr:hover {
-        border-bottom: 1px solid ${colors.gray300};
+        & tr + tr {
+          border-top: 1px solid ${colors.gray200};
         }
 
-      td {
-        padding: 15px 10px 15px 0;
-
-        & a + a {
-          margin-left: 10px;
-        }
-
-      & div {
-          display: flex;
-          justify-content: space-around;
-
-          a {
-            margin: 0 30px;
+        & tr:hover {
+          border-bottom: 1px solid ${colors.gray300};
           }
-        }
 
-        & :nth-child(3) {
-          text-align: center;
-        }
+        td {
+          padding: 15px 10px 15px 0;
 
-        & :last-child {
-          display: flex;
-          justify-content: flex-end;
-          font-size: 15px;
-        }
+          & a + a {
+            margin-left: 10px;
+          }
 
+        & div {
+            display: flex;
+            justify-content: space-between;
+
+            a {
+              margin: 0 20px;
+            }
+          }
+
+          & :last-child {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 15px;
+          }
+
+        }
       }
-    }
-}
+  }
 
 }
 `;

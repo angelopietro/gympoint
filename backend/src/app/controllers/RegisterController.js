@@ -10,37 +10,9 @@ import CreateRegisterService from '../services/CreateRegisterService';
 import UpdateRegisterService from '../services/UpdateRegisterService';
 
 class RegisterController {
-  // INDEX
   async index(req, res) {
     const { id } = req.params;
     const { page = 1, paginate = 10 } = req.query;
-
-    const options = {
-      attributes: [
-        'id',
-        'student_id',
-        'plan_id',
-        'start_date',
-        'end_date',
-        'price',
-        'active',
-      ],
-      order: [['id', 'DESC']],
-      page,
-      paginate,
-      include: [
-        {
-          model: Student,
-          as: 'student',
-          attributes: ['id', 'name'],
-        },
-        {
-          model: Plans,
-          as: 'plan',
-          attributes: ['id', 'title', 'duration', 'price'],
-        },
-      ],
-    };
 
     const data = id
       ? await Register.findOne({
@@ -69,7 +41,32 @@ class RegisterController {
             },
           ],
         })
-      : await Register.paginate(options);
+      : await Register.paginate({
+          attributes: [
+            'id',
+            'student_id',
+            'plan_id',
+            'start_date',
+            'end_date',
+            'price',
+            'active',
+          ],
+          order: [['id', 'DESC']],
+          page,
+          paginate,
+          include: [
+            {
+              model: Student,
+              as: 'student',
+              attributes: ['id', 'name'],
+            },
+            {
+              model: Plans,
+              as: 'plan',
+              attributes: ['id', 'title', 'duration', 'price'],
+            },
+          ],
+        });
 
     if (!data) {
       return res.status(401).json({ message: 'Não há alunos registrados!' });
@@ -77,7 +74,6 @@ class RegisterController {
     return res.json(data);
   }
 
-  // STORE
   async store(req, res) {
     const { student_id, plan_id, start_date } = req.body;
 
@@ -89,7 +85,6 @@ class RegisterController {
     return res.json(register);
   }
 
-  // UPDATE
   async update(req, res) {
     const { id } = req.params;
     const { student_id, plan_id, start_date } = req.body;
@@ -103,7 +98,6 @@ class RegisterController {
     return res.json(update);
   }
 
-  // DELETE
   async delete(req, res) {
     const { id } = req.params;
     const register = await Register.findByPk(id);

@@ -5,17 +5,19 @@ import { MdKeyboardArrowLeft, MdCheck } from 'react-icons/md';
 import { notification } from 'antd';
 import * as Yup from 'yup';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
-import { Container, SectionHeader, InputGroup, Buttons } from './styles';
+import {
+  FormContainer,
+  FormSectionHeader,
+  FormInputGroup,
+  FormButtons,
+} from '../styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import ButtonBack from '~/components/Buttons/General';
 import ButtonSave from '~/components/Buttons/Submit';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 import history from '~/services/history';
 
@@ -32,7 +34,7 @@ const schema = Yup.object().shape({
   height: Yup.string().required('Por favor, preencha a altura'),
 });
 
-export default function Edit() {
+export default function EditStudent() {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
@@ -92,12 +94,12 @@ export default function Edit() {
   }
 
   return (
-    <Container>
+    <FormContainer>
       <Form initialData={student} schema={schema} onSubmit={handleSubmit}>
-        <SectionHeader>
+        <FormSectionHeader>
           <h2>Edição de alunos</h2>
 
-          <Buttons>
+          <FormButtons>
             <ButtonBack
               color="secondary"
               type="button"
@@ -115,8 +117,8 @@ export default function Edit() {
               )}
               SALVAR
             </ButtonSave>
-          </Buttons>
-        </SectionHeader>
+          </FormButtons>
+        </FormSectionHeader>
         <Card>
           <h5>NOME COMPLETO</h5>
           <Input type="text" name="name" autoComplete="off" />
@@ -124,7 +126,7 @@ export default function Edit() {
           <h5>ENDEREÇO DE E-MAIL</h5>
           <Input type="text" name="email" autoComplete="off" />
 
-          <InputGroup>
+          <FormInputGroup>
             <div>
               <h5>IDADE</h5>
               <Input type="number" name="age" autoComplete="off" />
@@ -149,9 +151,9 @@ export default function Edit() {
                 autoComplete="off"
               />
             </div>
-          </InputGroup>
+          </FormInputGroup>
         </Card>
       </Form>
-    </Container>
+    </FormContainer>
   );
 }

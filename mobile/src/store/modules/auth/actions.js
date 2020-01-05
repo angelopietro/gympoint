@@ -5,10 +5,17 @@ export function signInRequest(id) {
   };
 }
 
-export function signInSuccess(student_id, start_date, end_date, plan, active) {
+export function signInSuccess(
+  student_id,
+  start_date,
+  end_date,
+  student,
+  plan,
+  active
+) {
   return {
     type: '@auth/SIGN_IN_SUCCESS',
-    payload: { student_id, start_date, end_date, plan, active },
+    payload: { student_id, start_date, end_date, student, plan, active },
   };
 }
 

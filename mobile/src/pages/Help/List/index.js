@@ -5,10 +5,9 @@ import { withNavigationFocus } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-/* -----COMPONENTS----- */
+import UserHeader from '~/components/UserHeader';
 import Button from '~/components/Button';
 
-/* -----STYLES----- */
 import {
   Container,
   HelpList,
@@ -24,13 +23,11 @@ import {
   Loading,
 } from './styles';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 
-/* -----UTIL----- */
-import { customFormatDate } from '~/util/format';
+import { formatDistanceDate } from '~/util/format';
 
-function List({ navigation }) {
+function List({ navigation, isFocused }) {
   const { student_id } = useSelector(state => state.auth.user);
 
   const [doubts, setDoubt] = useState([]);
@@ -52,9 +49,9 @@ function List({ navigation }) {
 
       const requests = await data.docs.map(response => ({
         ...response,
-        created_at: customFormatDate(response.created_at),
+        created_at: formatDistanceDate(response.created_at),
         answered_at: response.answer
-          ? customFormatDate(response.answer_at)
+          ? formatDistanceDate(response.answer_at)
           : null,
       }));
 
@@ -71,14 +68,10 @@ function List({ navigation }) {
   }
 
   useEffect(() => {
-    loadHelps();
-  }, []); // eslint-disable-line
-
-  useEffect(() => {
-    navigation.addListener('willFocus', async () => {
-      await loadHelps(1, true);
-    });
-  }, [navigation]); // eslint-disable-line
+    if (isFocused) {
+      loadHelps(1, true);
+    }
+  }, [isFocused]); // eslint-disable-line
 
   function handleNew() {
     navigation.navigate('HelpNew');
@@ -120,6 +113,7 @@ function List({ navigation }) {
 
   return (
     <Container>
+      <UserHeader />
       <Button onPress={handleNew}>Novo pedido de auxílio</Button>
       <HelpList
         data={doubts}

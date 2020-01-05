@@ -50,7 +50,6 @@ class UpdateRegisterService {
       where: { id: plan.id },
     });
 
-    // check if student plan was changed to send an email
     if (
       plan_id !== registerExists.plan_id ||
       String(startDateFormatted) !== String(registerExists.start_date)

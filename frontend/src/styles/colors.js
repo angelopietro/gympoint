@@ -3,6 +3,7 @@ export default {
   primary: '#ee4d64',
   secondary: '#ccc',
   info: '#4D85EE',
+  dark: '#000',
 
   gray100: '#f5f5f5',
   gray200: '#eee',

@@ -9,28 +9,24 @@ import { parseISO, addMonths, format } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 import * as Yup from 'yup';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
-  Container,
-  SectionHeader,
-  InputGroup,
-  Column,
-  Buttons,
-} from './styles';
+  FormContainer,
+  FormSectionHeader,
+  FormInputGroup,
+  FormColumn,
+  FormButtons,
+} from '../styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import ButtonBack from '~/components/Buttons/General';
 import ButtonSave from '~/components/Buttons/Submit';
 import DatePicker from '~/components/DatePicker';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 import history from '~/services/history';
 
-/* -----UTIL----- */
 import { formatPrice } from '~/util/format';
 
 const schema = Yup.object().shape({
@@ -47,12 +43,12 @@ const schema = Yup.object().shape({
 
 export default function Edit() {
   const { id } = useParams();
-  const [isLoading, setLoading] = useState(false);
   const [plans, setPlans] = useState([]);
   const [currentPlan, setCurrentPlan] = useState(null);
   const [register, setRegister] = useState([]);
   const [currentStudent, setCurrentStudent] = useState(null);
   const [totalPrice, setTotalPrice] = useState('R$ 0.00');
+  const [isLoading, setLoading] = useState(false);
 
   const finalPrice = useMemo(() => {
     return totalPrice;
@@ -61,7 +57,7 @@ export default function Edit() {
   async function loadStudents(value) {
     const response = await api.get('students', {
       params: {
-        search: value,
+        findByName: value,
       },
     });
 
@@ -166,7 +162,7 @@ export default function Edit() {
       );
     } catch (err) {
       notification.error({
-        duration: 3,
+        duration: 2,
         message: 'Atenção!',
         description: `Ocorreu um erro na validação dos campos!`,
       });
@@ -193,17 +189,17 @@ export default function Edit() {
         duration: 2,
         message: 'Atenção!',
         description: 'Ocorreu um erro ao editar a matrícula!',
-        // onClose: () => history.goBack(),
+        onClose: () => history.goBack(),
       });
     }
   }
 
   return (
-    <Container>
+    <FormContainer>
       <Form onSubmit={handleSubmit} initialData={register}>
-        <SectionHeader>
+        <FormSectionHeader>
           <h2>Edição de matrícula</h2>
-          <Buttons>
+          <FormButtons>
             <ButtonBack
               color="secondary"
               type="button"
@@ -221,8 +217,8 @@ export default function Edit() {
               )}
               SALVAR
             </ButtonSave>
-          </Buttons>
-        </SectionHeader>
+          </FormButtons>
+        </FormSectionHeader>
         <Card>
           <h5>ALUNO </h5>
           <AsyncSelect
@@ -235,8 +231,8 @@ export default function Edit() {
             onChange={s => setCurrentStudent(s)}
             value={currentStudent}
           />
-          <InputGroup>
-            <Column>
+          <FormInputGroup>
+            <FormColumn>
               <h5>PLANO</h5>
               <Select
                 name="plan_id"
@@ -252,9 +248,9 @@ export default function Edit() {
                 value={currentPlan}
                 isSearchable={false}
               />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>DATA DE INÍCIO</h5>
               <DatePicker
                 name="start_date"
@@ -265,20 +261,20 @@ export default function Edit() {
                 onChange={handleStartDateChange}
                 autoComplete="off"
               />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>DATA DE TÉRMINO</h5>
               <Input type="text" name="end_date" disabled />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>VALOR FINAL</h5>
               <Input name="finalPrice" value={finalPrice} disabled />
-            </Column>
-          </InputGroup>
+            </FormColumn>
+          </FormInputGroup>
         </Card>
       </Form>
-    </Container>
+    </FormContainer>
   );
 }

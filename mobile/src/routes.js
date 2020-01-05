@@ -3,19 +3,14 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-/* -----COMPONENTS----- */
 import Header from '~/components/Header';
 import SignOut from '~/components/SignOut';
 
-/* -----USER AUTH----- */
 import SignIn from '~/pages/SignIn';
-
-/* -----USER CHECKIN----- */
 import Checkin from '~/pages/Checkin';
 
-/* -----USER HELP----- */
 import Help from '~/pages/Help/List';
 import HelpNew from '~/pages/Help/New';
 import HelpDetail from '~/pages/Help/Detail';
@@ -36,7 +31,7 @@ export default (signedIn = false) =>
                   navigationOptions: {
                     tabBarLabel: 'Check-ins',
                     tabBarIcon: ({ tintColor }) => (
-                      <Icon name="check" size={26} color={tintColor} />
+                      <Icon name="account-check" size={26} color={tintColor} />
                     ),
                   },
                   defaultNavigationOptions: {
@@ -56,7 +51,11 @@ export default (signedIn = false) =>
                   navigationOptions: {
                     tabBarLabel: 'Pedir ajuda',
                     tabBarIcon: ({ tintColor }) => (
-                      <Icon name="question" size={26} color={tintColor} />
+                      <Icon
+                        name="account-question"
+                        size={26}
+                        color={tintColor}
+                      />
                     ),
                   },
                   defaultNavigationOptions: {
@@ -91,11 +90,11 @@ export default (signedIn = false) =>
                 fontSize: 14,
               },
               tabStyle: {
-                marginTop: 15,
-                height: 55,
+                marginTop: 9,
+                height: 50,
               },
               style: {
-                height: 75,
+                height: 65,
               },
             },
           }

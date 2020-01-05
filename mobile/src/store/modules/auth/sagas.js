@@ -1,7 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 
 import { signInSuccess, signInFailure } from './actions';
@@ -17,6 +16,7 @@ export function* signIn({ payload }) {
         data.student_id,
         data.start_date,
         data.end_date,
+        data.student,
         data.plan,
         data.active
       )

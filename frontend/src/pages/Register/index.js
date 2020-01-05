@@ -6,7 +6,6 @@ import { parseISO, format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { notification } from 'antd';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
   Container,
@@ -16,14 +15,12 @@ import {
   PageActions,
 } from './styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import NoResults from '~/components/NoResults';
 import ButtomCustom from '~/components/Buttons/General';
 import Pagination from '~/components/Pagination';
 
-/* -----SERVICES----- */
 import history from '~/services/history';
 import api from '~/services/api';
 
@@ -46,9 +43,13 @@ export default function Register() {
 
     const list = docs.map(result => ({
       ...result,
-      iniDate: format(parseISO(result.start_date), "dd 'de' MMMM 'de' yyyy'", {
-        locale: pt,
-      }),
+      startDate: format(
+        parseISO(result.start_date),
+        "dd 'de' MMMM 'de' yyyy'",
+        {
+          locale: pt,
+        }
+      ),
       endDate: format(parseISO(result.end_date), "dd 'de' MMMM 'de' yyyy'", {
         locale: pt,
       }),
@@ -148,7 +149,7 @@ export default function Register() {
                   <td>#{info.id}</td>
                   <td>{info.student.name}</td>
                   <td>{info.plan.title}</td>
-                  <td>{info.iniDate}</td>
+                  <td>{info.startDate}</td>
                   <td>{info.endDate}</td>
                   <td>
                     {info.active ? (

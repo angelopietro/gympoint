@@ -3,16 +3,14 @@ import { Op } from 'sequelize';
 import Student from '../models/Student';
 import Plans from '../models/Plans';
 import Register from '../models/Register';
+import Checkins from '../schemas/Checkins';
 
 class StudentController {
-  // INDEX
   async index(req, res) {
     const { id, student_id } = req.params;
-    const { search = '', page = 1, paginate = 10 } = req.query;
+    const { findByName = '', page = 1, paginate = 10 } = req.query;
 
-    /* validação do Aluno através de acesso Mobile, verificando se ele está
-    cadastrado e se já está liberado (registrado/ativo) para poder frequentar a
-    academia durante o período exitente de acordo com o plano */
+    /* validação do Aluno através de acesso Mobile */
     if (student_id) {
       const data = await Register.findOne({
         attributes: [
@@ -45,24 +43,25 @@ class StudentController {
     }
 
     /**
-     * Filtro de alunos nome recebendo um Query Parameter "?search=Pietro".
+     * Filtro de alunos nome recebendo um Query Parameter "?findByName=Pietro".
      * Caso o parâmetro não seja passado, retorna todos usuários;
      */
 
-    const options = {
-      where: {
-        name: {
-          [Op.like]: search ? `%${search}%` : `%`,
-        },
-      },
-      page,
-      paginate,
-      order: [['id', 'DESC'], ['name', 'ASC']],
-    };
-
     const data = id
       ? await Student.findByPk(id)
-      : await Student.paginate(options);
+      : await Student.paginate({
+          where: {
+            name: {
+              [Op.like]: findByName ? `%${findByName}%` : `%`,
+            },
+          },
+          page,
+          paginate,
+          order: [
+            ['id', 'DESC'],
+            ['name', 'ASC'],
+          ],
+        });
 
     if (data === null) {
       return res.status(400).json({ error: 'Aluno não encontrado!' });
@@ -71,7 +70,6 @@ class StudentController {
     return res.json(data);
   }
 
-  // STORE
   async store(req, res) {
     const studentExists = await Student.findOne({
       where: { email: req.body.email },
@@ -86,7 +84,6 @@ class StudentController {
     return res.json({ id, name, email, age, weight, height });
   }
 
-  // UPDATE
   async update(req, res) {
     const { id } = req.params;
     const { email } = req.body;
@@ -105,7 +102,6 @@ class StudentController {
     return res.json({ name, email, age, weight, height });
   }
 
-  // DELETE
   async delete(req, res) {
     const studentId = req.params.id;
 
@@ -117,6 +113,9 @@ class StudentController {
     Student.destroy({
       where: { id: studentId },
     });
+
+    // remove os documentos do mongodb (check-ins realizados pelo aluno)
+    Checkins.deleteMany({ student_id: studentId }, () => {});
 
     return res.status(200).json({
       success: 'Aluno excluído com sucesso!',

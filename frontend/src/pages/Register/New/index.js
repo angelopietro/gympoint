@@ -8,27 +8,23 @@ import pt from 'date-fns/locale/pt-BR';
 import { notification } from 'antd';
 import * as Yup from 'yup';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
-  Container,
-  SectionHeader,
-  InputGroup,
-  Column,
-  Buttons,
-} from './styles';
+  FormContainer,
+  FormSectionHeader,
+  FormInputGroup,
+  FormColumn,
+  FormButtons,
+} from '../styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import ButtonBack from '~/components/Buttons/General';
 import ButtonSave from '~/components/Buttons/Submit';
 import DatePicker from '~/components/DatePicker';
 
-/* -----UTIL----- */
 import { formatPrice } from '~/util/format';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 import history from '~/services/history';
 
@@ -42,17 +38,12 @@ const schema = Yup.object().shape({
   start_date: Yup.date().required('Por favor, selecione uma data de início!'),
 });
 
-export default function New() {
+export default function NewRegister() {
   const [plan, setPlans] = useState([]);
   const [totalPrice, setTotalPrice] = useState('R$ 0.00');
-  const [isDesabled, setDesabled] = useState(true);
+  const [desabledDate, setDesabledDate] = useState(true);
   const [isLoading, setLoading] = useState(false);
-
-  const [registration, setRegistration] = useState({
-    start_date: null,
-    plan_id: null,
-    student_id: null,
-  });
+  const [registration, setRegistration] = useState([]);
 
   const finalPrice = useMemo(() => {
     return totalPrice;
@@ -61,7 +52,7 @@ export default function New() {
   async function loadStudents(value) {
     const response = await api.get('students/', {
       params: {
-        search: value,
+        findByName: value,
       },
     });
 
@@ -92,7 +83,7 @@ export default function New() {
     loadPlans();
   }, []);
 
-  function handleChange(newValue) {
+  function handleStudentChange(newValue) {
     setRegistration({
       student_id: newValue,
     });
@@ -111,7 +102,7 @@ export default function New() {
         : null,
     });
     setTotalPrice(formatPrice(newPlan.price * newPlan.duration));
-    setDesabled(false);
+    setDesabledDate(false);
   }
 
   function handleStartDate(newDate) {
@@ -173,12 +164,12 @@ export default function New() {
   }
 
   return (
-    <Container>
+    <FormContainer>
       <Form onSubmit={handleSubmit} initialData={registration}>
-        <SectionHeader>
+        <FormSectionHeader>
           <h2>Cadastro de matrículas</h2>
 
-          <Buttons>
+          <FormButtons>
             <ButtonBack
               color="secondary"
               type="button"
@@ -196,8 +187,8 @@ export default function New() {
               )}
               SALVAR
             </ButtonSave>
-          </Buttons>
-        </SectionHeader>
+          </FormButtons>
+        </FormSectionHeader>
         <Card>
           <h5>ALUNO</h5>
 
@@ -210,11 +201,11 @@ export default function New() {
             getOptionValue={option => option.id}
             getOptionLabel={option => option.name}
             onChange={s => {
-              handleChange(s.id);
+              handleStudentChange(s.id);
             }}
           />
-          <InputGroup>
-            <Column>
+          <FormInputGroup>
+            <FormColumn>
               <h5>PLANO</h5>
               <Select
                 name="plan_id"
@@ -228,9 +219,9 @@ export default function New() {
                 }}
                 isSearchable={false}
               />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>DATA DE INÍCIO</h5>
               <DatePicker
                 selected={registration.start_date}
@@ -239,17 +230,17 @@ export default function New() {
                 dateFormat="dd/MM/yyyy"
                 name="start_date"
                 onChange={handleStartDate}
-                disabled={isDesabled}
+                disabled={desabledDate}
                 autoComplete="off"
               />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>DATA DE TÉRMINO</h5>
               <Input name="end_date" disabled />
-            </Column>
+            </FormColumn>
 
-            <Column>
+            <FormColumn>
               <h5>VALOR FINAL</h5>
               <Input
                 type="text"
@@ -257,10 +248,10 @@ export default function New() {
                 value={finalPrice}
                 disabled
               />
-            </Column>
-          </InputGroup>
+            </FormColumn>
+          </FormInputGroup>
         </Card>
       </Form>
-    </Container>
+    </FormContainer>
   );
 }

@@ -39,15 +39,12 @@ class CreateRegisterService {
       price: finalPrice,
     });
 
-    /**
-     * Send notification email to student
-     */
-
     const { title, duration } = await Plans.findOne({
       where: { id: planExists.id },
     });
 
     await Queue.add(WelcomeMail.key, {
+      id: student.id,
       name: student.name,
       email: student.email,
       title,

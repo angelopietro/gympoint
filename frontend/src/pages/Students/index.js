@@ -4,7 +4,6 @@ import { Form } from '@rocketseat/unform';
 import { MdAdd } from 'react-icons/md';
 import { notification } from 'antd';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
   Container,
@@ -14,7 +13,6 @@ import {
   PageActions,
 } from './styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import NoResults from '~/components/NoResults';
@@ -22,14 +20,13 @@ import Search from '~/components/SearchBar';
 import ButtomCustom from '~/components/Buttons/General';
 import Pagination from '~/components/Pagination';
 
-/* -----SERVICES----- */
 import history from '~/services/history';
 import api from '~/services/api';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [findByName, setFindByName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -39,7 +36,7 @@ export default function Students() {
       setCurrentPage(page);
 
       const response = await api.get('/students', {
-        params: { search, page },
+        params: { findByName, page },
       });
 
       const { docs, pages, total } = response.data;
@@ -61,10 +58,10 @@ export default function Students() {
 
   useEffect(() => {
     loadStudents();
-  }, [search]); // eslint-disable-line
+  }, [findByName]); // eslint-disable-line
 
   async function handleSearch(e) {
-    setSearch(e.search);
+    setFindByName(e.find);
   }
 
   async function handleDelete(id, name) {

@@ -5,12 +5,10 @@ import { Alert, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import * as auth from '~/store/modules/auth/actions';
 
-/* -----COMPONENTS----- */
 import logo from '~/assets/logo.png';
 import Input from '~/components/Input';
 import ButtonSubmit from '~/components/Button';
 
-/* -----STYLES----- */
 import { Container, Form } from './styles';
 
 export default function SignIn() {

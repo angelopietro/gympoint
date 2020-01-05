@@ -1,24 +1,28 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
 
 import { useSelector } from 'react-redux';
 
-/* -----STYLES----- */
 import { MessageStatus, MessageContent, MessageText } from './styles';
 
-/* -----UTIL----- */
-import { customFormatDate } from '~/util/format';
-
 export default function Duration() {
-  const { start_date, end_date } = useSelector(state => state.auth.user);
+  const { start_date } = useSelector(state => state.auth.user);
 
   return (
     <MessageStatus>
       <MessageContent>
-        <Icon name="message1" size={28} color="#ee4e62" />
+        <Icon name="clock-alert" size={33} color="#ee4e62" />
         <MessageText>
-          Caro aluno, a sua matrícula ainda não está liberada para realizar
-          checkin. A liberação irá ocorrer {customFormatDate(start_date)}.
+          Caro aluno, seu check-in poderá ser realizado a partir do dia
+          <Text style={{ fontWeight: 'bold' }}>
+            {format(parseISO(start_date), " dd/MM/yyyy'", {
+              locale: pt,
+            })}
+          </Text>
+          , data da liberação de sua matrícula.
         </MessageText>
       </MessageContent>
     </MessageStatus>

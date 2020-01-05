@@ -2,7 +2,6 @@ import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Mail from '../../lib/Mail';
 
-/* -----UTIL----- */
 import { formatPrice } from '../../util/format';
 
 class WelcomeMail {
@@ -11,13 +10,23 @@ class WelcomeMail {
   }
 
   async handle({ data }) {
-    const { name, email, title, duration, price, start_date, end_date } = data;
+    const {
+      id,
+      name,
+      email,
+      title,
+      duration,
+      price,
+      start_date,
+      end_date,
+    } = data;
 
     await Mail.sendMail({
       to: `${name} <${email}>`,
       subject: `${name}, seja bem-vindo ao GymPoint!`,
       template: 'welcome',
       context: {
+        id,
         student: name,
         plan: title,
         duration,

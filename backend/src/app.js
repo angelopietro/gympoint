@@ -20,12 +20,10 @@ class App {
   }
 
   middlewares() {
-    // Helmet é uma coleção de funções de middlewares menores que configuram cabeçalhos HTTP relacionados à segurança
     this.server.use(helmet());
-    // O CORS é um pacote node.js para fornecer um middleware do Connect / Express
     this.server.use(
       cors({
-        origin: process.env.FRONT_CORE_URL, // Habilitando o acesso da aplicação front-end
+        origin: process.env.FRONT_CORE_URL,
       })
     );
     this.server.use(express.json());

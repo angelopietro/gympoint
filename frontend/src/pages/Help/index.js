@@ -3,7 +3,6 @@ import { Form, Input } from '@rocketseat/unform';
 import { notification } from 'antd';
 import * as Yup from 'yup';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
   Container,
@@ -14,14 +13,12 @@ import {
   AnswerButton,
 } from './styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import NoResults from '~/components/NoResults';
 import Pagination from '~/components/Pagination';
 import MyModal from '~/components/Modal';
 
-/* -----SERVICES----- */
 import api from '~/services/api';
 
 const schema = Yup.object().shape({

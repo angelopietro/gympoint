@@ -11,7 +11,7 @@ export default function SignOut() {
   const dispatch = useDispatch();
 
   function handleSignOut() {
-    Alert.alert('Confirmar saida', 'Você realmente deseja sair?', [
+    Alert.alert('Confirmação de saida', 'Você realmente deseja sair?', [
       {
         text: 'SIM',
         onPress: () => {
@@ -28,7 +28,7 @@ export default function SignOut() {
           handleSignOut();
         }}
       >
-        <Icon name="logout" size={22} color="#444" />
+        <Icon name="logout" size={20} color="#444" />
       </TouchableOpacity>
     </Container>
   );

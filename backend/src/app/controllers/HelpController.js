@@ -5,13 +5,11 @@ import AnswerHelpMail from '../jobs/AnswerHelpMail';
 import Queue from '../../lib/Queue';
 
 class HelpController {
-  // INDEX
   async index(req, res) {
     try {
       const { id, student_id } = req.params;
       const { page = 1, paginate = 10 } = req.query;
 
-      // verifica  a existência student_id (parâmetro responsável em retornar os dados da ajuda do aluno)
       if (student_id) {
         const student = await Student.findByPk(student_id);
 
@@ -26,11 +24,9 @@ class HelpController {
           order: [['created_at', 'DESC']],
           attributes: ['id', 'question', 'answer', 'answer_at', 'created_at'],
         });
-
         return res.json(helpOrder);
       }
 
-      // verifica  a existência ou não do parâmetro id (parâmetro responsável em retornar os dados da ajuda selecionada)
       const data = id
         ? await HelpOrders.findOne({
             where: { id },
@@ -43,8 +39,7 @@ class HelpController {
               },
             ],
           })
-        : // lista todas as ajudas que ainda não foram respondidas
-          await HelpOrders.paginate({
+        : await HelpOrders.paginate({
             attributes: ['id', 'student_id', 'question', 'answer', 'answer_at'],
             page,
             paginate,
@@ -73,7 +68,6 @@ class HelpController {
     }
   }
 
-  // STORE
   async store(req, res) {
     const { student_id } = req.params;
 
@@ -95,7 +89,6 @@ class HelpController {
     return res.json({ response });
   }
 
-  // UPDATE
   async update(req, res) {
     const { id } = req.params;
 

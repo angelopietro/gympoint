@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 
 class User extends Model {
   static init(sequelize) {
-    // Chamando o método init da classe pai (super -> Model)
     super.init(
       {
         name: Sequelize.STRING,
@@ -25,7 +24,6 @@ class User extends Model {
     return this;
   }
 
-  // Método de verificação de senha
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }

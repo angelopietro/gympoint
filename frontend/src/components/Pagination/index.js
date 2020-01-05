@@ -9,7 +9,6 @@ import history from '~/services/history';
 export default function Pagination({
   currentPage,
   totalPages,
-  totalRecords,
   loading,
   loadItens,
 }) {
@@ -63,7 +62,6 @@ export default function Pagination({
 Pagination.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  totalRecords: PropTypes.number,
   loading: PropTypes.bool,
   loadItens: PropTypes.func,
 };
@@ -71,7 +69,6 @@ Pagination.propTypes = {
 Pagination.defaultProps = {
   currentPage: 0,
   totalPages: 0,
-  totalRecords: 0,
   loading: false,
   loadItens: '',
 };

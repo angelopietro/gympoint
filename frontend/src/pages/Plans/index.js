@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { notification } from 'antd';
 import { MdAdd } from 'react-icons/md';
 
-/* -----STYLES----- */
 import colors from '~/styles/colors';
 import {
   Container,
@@ -13,18 +12,15 @@ import {
   PageActions,
 } from './styles';
 
-/* -----COMPONENTS----- */
 import Loading from '~/components/Loading';
 import Card from '~/components/Card';
 import NoResults from '~/components/NoResults';
 import ButtomCustom from '~/components/Buttons/General';
 import Pagination from '~/components/Pagination';
 
-/* -----SERVICES----- */
 import history from '~/services/history';
 import api from '~/services/api';
 
-/* -----UTIL----- */
 import { formatPrice } from '~/util/format';
 
 export default function Plans() {

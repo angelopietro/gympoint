@@ -9,7 +9,7 @@ export default function SearchBar({ ...rest }) {
       <button type="submit">
         <MdSearch />
       </button>
-      <Input autoComplete="off" type="search" name="search" {...rest} />
+      <Input autoComplete="off" type="search" name="find" {...rest} />
     </SearchInput>
   );
 }
