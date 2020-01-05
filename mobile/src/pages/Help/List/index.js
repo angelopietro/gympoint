@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import UserHeader from '~/components/UserHeader';
@@ -128,12 +127,5 @@ function List({ navigation, isFocused }) {
     </Container>
   );
 }
-
-List.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    addListener: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default withNavigationFocus(List);

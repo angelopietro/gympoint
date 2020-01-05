@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Image } from 'react-native';
 
-/* -----REDUX----- */
 import { useDispatch } from 'react-redux';
 import * as auth from '~/store/modules/auth/actions';
 
