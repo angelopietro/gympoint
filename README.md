@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png?raw=true" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="https://github.com/angelopietro/gympoint/blob/master/.github/logo.png?raw=true" width="200px" />
 </h1>
 
 <p align="center">
@@ -97,12 +97,12 @@ NODE_ENV=development
 # Auth
 APP_SECRET=
 
-# Database MySQL
-DB_DIALECT=mysql
+# Database PostgreSQL
+DB_DIALECT=postgresql
 DB_HOST=
 DB_USER=
 DB_PASS=
-DB_NAME=mysqlgympoint
+DB_NAME=gympoint
 
 # Mongo
 MONGO_URL=
